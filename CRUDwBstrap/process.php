@@ -3,6 +3,7 @@ session_start();
 
 $mysqli = new mysqli('localhost', 'root', '','crud') or die(mysqli_error($mysqli));
 
+$id = 0;
 $update = false;
 $name = '';
 $location = '';
@@ -21,7 +22,7 @@ if (isset($_POST['save'])) {
 
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
-    $mysqli->query("DELETE FROM data WHERE id=$id") or die($mysqli->error());
+    $mysqli->query("DELETE FROM data WHERE id=$id") or die($mysqli->error);
 
     $_SESSION['message'] = "Record has been deleted!";
     $_SESSION['msg_type'] = "danger";
@@ -32,8 +33,22 @@ if (isset($_GET['delete'])) {
 if(isset($_GET['edit'])) {
     $id = $_GET['edit'];
     $update = true;
-    $result = $mysqli->query("SELECT * FROM data WHERE id=$id") or die($mysqli->error());
-    $row = $result->fetch_array();
-    $name = $row['name'];
-    $location = $row['location'];
+    $result = $mysqli->query("SELECT * FROM data WHERE id=$id") or die($mysqli->error);
+    if($result->num_rows){
+        $row = $result->fetch_array();
+        $name = $row['name'];
+        $location = $row['location'];
+    }
+}
+
+if(isset($_POST['update'])) {
+    $id = $_POST['id'];  // hidden input field
+    $name = $_POST['name'];
+    $location = $_POST['location'];
+    $mysqli->query("UPDATE data SET name='$name', location='$location' WHERE id=$id") or die($mysqli->error);
+
+    $_SESSION['message'] = "Record has been updated!";
+    $_SESSION['msg_type'] = "warning";
+
+    header("location: index.php");
 }

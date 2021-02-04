@@ -12,6 +12,8 @@
 
     <?php if(isset($_SESSION['message'])): ?>
         <div class="alert alert-<?=$_SESSION['msg_type']?>">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+
             <?php
                 echo $_SESSION['message'];
                 unset($_SESSION['message']);
@@ -58,6 +60,7 @@
         ?>
         <div class="row justify-content-center">
             <form action="process.php" method="POST">
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <div class="form-group">
                     <label>Name</label>
                     <input type="text" name="name" class="form-control" 
