@@ -60,14 +60,20 @@
             <form action="process.php" method="POST">
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" name="name" class="form-control" value="Enter your name">
+                    <input type="text" name="name" class="form-control" 
+                            value="<?php echo $name; ?>" placeholder="Enter your name">
                 </div>
                 <div class="form-group">
                     <label>Location</label>
-                    <input type="text" name="location" class="form-control" value="Enter your location">
+                    <input type="text" name="location" class="form-control" 
+                            value="<?php echo $location; ?>" placeholder="Enter your location">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary" name="save">Save</button>
+                    <?php if($update == true): ?>
+                        <button type="submit" class="btn btn-primary" name="update">Update</button>
+                    <?php else: ?>
+                        <button type="submit" class="btn btn-primary" name="save">Save</button>
+                    <?php endif; ?>
                 </div>
             </form>
         </div>
