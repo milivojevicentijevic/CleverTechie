@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$mysqli = new mysqli('localhost', 'root', '','crud') or die(mysqli_error($mysqli));
+$mysqli = new mysqli('localhost', 'root', '','ct_crud') or die(mysqli_error($mysqli));
 
 $id = 0;
 $update = false;
