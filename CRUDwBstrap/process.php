@@ -8,45 +8,59 @@ $update = false;
 $name = '';
 $location = '';
 
+// code to display data
+$select_query = "SELECT * FROM data";
+$results = $mysqli->query($select_query) or die($mysqli->error);
+//pre_r($results);
+
+// insert data
 if (isset($_POST['save'])) {
     if(!empty($_POST['name']) && !empty($_POST['location'])) {
         $name = $_POST['name'];
         $location = $_POST['location'];
-    
-        $mysqli->query("INSERT INTO data (name, location) VALUES ('$name','$location')") or die($mysqli->error);
+
+        $insert_query = "INSERT INTO data (name, location) VALUES ('$name','$location')";
+        $mysqli->query($insert_query) or die($mysqli->error);
         
         $_SESSION['message'] = "Record has been saved!";
         $_SESSION['msg_type'] = "success";
     }
     header("location: index.php");
 }
-
+// delete one data
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
-    $mysqli->query("DELETE FROM data WHERE id=$id") or die($mysqli->error);
+
+    $delete_query = "DELETE FROM data WHERE id=$id";
+    $mysqli->query($delete_query) or die($mysqli->error);
 
     $_SESSION['message'] = "Record has been deleted!";
     $_SESSION['msg_type'] = "danger";
 
     header("location: index.php");
 }
-
+// select one data to update
 if(isset($_GET['edit'])) {
     $id = $_GET['edit'];
+
     $update = true;
-    $result = $mysqli->query("SELECT * FROM data WHERE id=$id") or die($mysqli->error);
+
+    $select_id_query = "SELECT * FROM data WHERE id=$id";
+    $result = $mysqli->query($select_id_query) or die($mysqli->error);
     if($result->num_rows){
         $row = $result->fetch_array();
         $name = $row['name'];
         $location = $row['location'];
     }
 }
-
+// update one data
 if(isset($_POST['update'])) {
     $id = $_POST['id'];  // hidden input field
     $name = $_POST['name'];
     $location = $_POST['location'];
-    $mysqli->query("UPDATE data SET name='$name', location='$location' WHERE id=$id") or die($mysqli->error);
+
+    $update_query= "UPDATE data SET name='$name', location='$location' WHERE id=$id";
+    $mysqli->query($update_query) or die($mysqli->error);
 
     $_SESSION['message'] = "Record has been updated!";
     $_SESSION['msg_type'] = "warning";
