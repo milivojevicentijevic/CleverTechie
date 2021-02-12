@@ -9,14 +9,15 @@ $name = '';
 $location = '';
 
 if (isset($_POST['save'])) {
-    $name = $_POST['name'];
-    $location = $_POST['location'];
-
-    $mysqli->query("INSERT INTO data (name, location) VALUES ('$name','$location')") or die($mysqli->error);
+    if(!empty($_POST['name']) && !empty($_POST['location'])) {
+        $name = $_POST['name'];
+        $location = $_POST['location'];
     
-    $_SESSION['message'] = "Record has been saved!";
-    $_SESSION['msg_type'] = "success";
-
+        $mysqli->query("INSERT INTO data (name, location) VALUES ('$name','$location')") or die($mysqli->error);
+        
+        $_SESSION['message'] = "Record has been saved!";
+        $_SESSION['msg_type'] = "success";
+    }
     header("location: index.php");
 }
 

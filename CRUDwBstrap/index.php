@@ -43,7 +43,7 @@
                         <td>
                             <a href="index.php?edit=<?php echo $row['id']; ?>"
                                 class="btn btn-info">Edit</a>
-                            <a href="process.php?delete=<?php echo $row['id']; ?>"
+                            <a href="process.php?delete=<?php echo $row['id']; ?>" onClick="return confirm_delete()"
                                 class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
@@ -81,6 +81,10 @@
             </form>
         </div>
     </div>
-    
+    <script type="text/javascript">
+        function confirm_delete() {
+            return confirm('Are you sure?');
+        }
+    </script>
 </body>
 </html>
