@@ -27,7 +27,7 @@ if (isset($_POST['save'])) {
     }
     header("location: index.php");
 }
-// delete one data
+// delete one of data
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
 
@@ -39,7 +39,7 @@ if (isset($_GET['delete'])) {
 
     header("location: index.php");
 }
-// select one data to update
+// select one of data to update
 if(isset($_GET['edit'])) {
     $id = $_GET['edit'];
 
@@ -53,7 +53,7 @@ if(isset($_GET['edit'])) {
         $location = $row['location'];
     }
 }
-// update one data
+// update one of data
 if(isset($_POST['update'])) {
     $id = $_POST['id'];  // hidden input field
     $name = $_POST['name'];
